@@ -52,12 +52,11 @@ namespace CSV_Column_Converter
                         Console.Write("請輸入選取的欄位：");
                         string columns_str = Console.ReadLine();
                         usr_columns = columns_str.Split(' ');
-
-                        int[] index_columns = new int[usr_columns.Length];
+                        
                         foreach (string column in usr_columns)
                         {
                             int i = Convert.ToInt32(column);
-                            if (i > usr_columns.Length)
+                            if (i > columns.Length)
                                 Console.WriteLine("輸入數字大於欄位數量！請重新輸入！");
                             else
                                 isValid = true;
@@ -81,7 +80,7 @@ namespace CSV_Column_Converter
 
             }
             catch (Exception e) {
-                //Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message);
                 Console.WriteLine("請確實輸入指定的格式！");
             }
             
@@ -110,7 +109,7 @@ namespace CSV_Column_Converter
             }
             catch (Exception e)
             {
-                Console.WriteLine("{0} 寫入失敗！", config["Output_File_Name"]);                
+                Console.WriteLine("{0} 寫入失敗！\n{0}", config["Output_File_Name"], e.Message);                
             }           
 
         }       
@@ -143,7 +142,7 @@ namespace CSV_Column_Converter
             }
             catch (Exception e) {
                 Console.WriteLine("The csv file could not be read!");
-                //Console.WriteLine(e.Message);
+                Console.WriteLine(e.Message);
             }
 
             return columns;
@@ -160,7 +159,7 @@ namespace CSV_Column_Converter
                 output = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonString);
             }
             catch (Exception e) {
-                Console.WriteLine("請確認Config.json是否在此資料夾！");                
+                Console.WriteLine("請確認Config.json是否在此資料夾！\n{0}",e.Message);                
             }
             
 
@@ -173,79 +172,79 @@ namespace CSV_Column_Converter
 
        
 
-        public static void checkConfigJson() {
-            string path = Directory.GetCurrentDirectory();
-            //Console.WriteLine("The current directory is {0}", path);
-            ProcessDirectory(path);
-        }
+        //public static void checkConfigJson() {
+        //    string path = Directory.GetCurrentDirectory();
+        //    //Console.WriteLine("The current directory is {0}", path);
+        //    ProcessDirectory(path);
+        //}
 
-        // Process all files in the directory passed in, recurse on any directories
-        // that are found, and process the files they contain.
-        public static void ProcessDirectory(string targetDirectory)
-        {
-            // Process the list of files found in the directory.
-            string[] fileEntries = Directory.GetFiles(targetDirectory);
-            Boolean ConfigIsExists = false;
-            foreach (string fileName in fileEntries) {
-                if (fileName.Equals("Config.json")) {
-                    ConfigIsExists = true;
-                    break;
-                }
-            }
+        //// Process all files in the directory passed in, recurse on any directories
+        //// that are found, and process the files they contain.
+        //public static void ProcessDirectory(string targetDirectory)
+        //{
+        //    // Process the list of files found in the directory.
+        //    string[] fileEntries = Directory.GetFiles(targetDirectory);
+        //    Boolean ConfigIsExists = false;
+        //    foreach (string fileName in fileEntries) {
+        //        if (fileName.Equals("Config.json")) {
+        //            ConfigIsExists = true;
+        //            break;
+        //        }
+        //    }
 
-            if (ConfigIsExists)
-            {
+        //    if (ConfigIsExists)
+        //    {
 
 
-            }
-            else {
-                Console.WriteLine("建立Config.json");
-            }
+        //    }
+        //    else {
+        //        Console.WriteLine("建立Config.json");
+        //    }
 
             
 
-            //foreach (string fileName in fileEntries)
-            //    ProcessFile(fileName);
+        //    //foreach (string fileName in fileEntries)
+        //    //    ProcessFile(fileName);
 
-                // Recurse into subdirectories of this directory.
-                //string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
-                //foreach (string subdirectory in subdirectoryEntries)
-                //    ProcessDirectory(subdirectory);
-        }
+        //        // Recurse into subdirectories of this directory.
+        //        //string[] subdirectoryEntries = Directory.GetDirectories(targetDirectory);
+        //        //foreach (string subdirectory in subdirectoryEntries)
+        //        //    ProcessDirectory(subdirectory);
+        //}
 
-        // Insert logic for processing found files here.
-        public static void ProcessFile(string path)
-        {
-            Console.WriteLine("Processed file '{0}'.", path);
-        }
+        //// Insert logic for processing found files here.
+        //public static void ProcessFile(string path)
+        //{
+        //    Console.WriteLine("Processed file '{0}'.", path);
+        //}
 
-        static void TestGetAndAddDirectory() {
-            try
-            {
-                // Get the current directory.
-                string path = Directory.GetCurrentDirectory();
-                string target = @"c:\temp";
-                Console.WriteLine("The current directory is {0}", path);
-                if (!Directory.Exists(target))
-                {
-                    Directory.CreateDirectory(target);
-                }
+        //static void TestGetAndAddDirectory() {
+        //    try
+        //    {
+        //        // Get the current directory.
+        //        string path = Directory.GetCurrentDirectory();
+        //        string target = @"c:\temp";
+        //        Console.WriteLine("The current directory is {0}", path);
+        //        if (!Directory.Exists(target))
+        //        {
+        //            Directory.CreateDirectory(target);
+        //        }
 
-                // Change the current directory.
-                Environment.CurrentDirectory = (target);
-                if (path.Equals(Directory.GetCurrentDirectory()))
-                {
-                    Console.WriteLine("You are in the temp directory.");
-                }
-                else
-                {
-                    Console.WriteLine("You are not in the temp directory.");
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The process failed: {0}", e.ToString());
-            }
-        }
+        //        // Change the current directory.
+        //        Environment.CurrentDirectory = (target);
+        //        if (path.Equals(Directory.GetCurrentDirectory()))
+        //        {
+        //            Console.WriteLine("You are in the temp directory.");
+        //        }
+        //        else
+        //        {
+        //            Console.WriteLine("You are not in the temp directory.");
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine("The process failed: {0}", e.ToString());
+        //    }
+        //}
     }
 }
